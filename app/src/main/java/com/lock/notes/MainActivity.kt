@@ -18,25 +18,19 @@ import com.lock.notes.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(), inoteadapter {
 
     lateinit var viewModel: Noteviewmodel
-    /*lateinit var binding: ActivityMainBinding*/
     lateinit var recyclerView: RecyclerView
     lateinit var inputdata:EditText
     lateinit var inserdata:Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        /*binding= ActivityMainBinding.inflate(layoutInflater)
-        val view=binding.root
-        setContentView(view)
-        binding.recylerView.layoutManager=LinearLayoutManager(this)*/
+
         recyclerView=findViewById(R.id.recyclerView)
 
         recyclerView.layoutManager=LinearLayoutManager(this)
         val adapter=Notesrvadapter(this,this)
         recyclerView.adapter=adapter
-        /*recylerview.layoutManager=LinearLayoutManager(this)
-        val adapter=Notesrvadapter(this,this)
-        recylerview.adapter=adapter*/
+
 
         viewModel=ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(Noteviewmodel::class.java)
         viewModel.allnotes.observe(this, Observer {list->
@@ -52,7 +46,6 @@ class MainActivity : AppCompatActivity(), inoteadapter {
         /*inputdata.findViewById<EditText>(R.id.input)*/
         val fetchdata=inputdata.text.toString()
         if (fetchdata.isNotEmpty()){
-            Toast.makeText(this,"Data Is Insert",Toast.LENGTH_LONG).show()
             viewModel.insertnote(Note(fetchdata))
             Toast.makeText(this,"Data insert Success",Toast.LENGTH_SHORT).show()
         }
